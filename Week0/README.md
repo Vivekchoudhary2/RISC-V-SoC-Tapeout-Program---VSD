@@ -62,13 +62,29 @@ $ aclocal --version
 $ make
 $ sudo make install
 ```
+![NgSPice installation](Images/ngspice_installation.png)
+
 #### **Error 1**
 ![Automake error](Images/error_1.png)
 
 #### **Solution 1**
 ![Automake solution](Images/solution_1.png)
 
-![NgSPice installation](Images/ngspice_installation.png)
+#### <ins>**Magic**</ins>
+```bash
+$ sudo apt-get install m4
+$ sudo apt-get install tcsh
+$ sudo apt-get install csh
+$ sudo apt-get install libx11-dev
+$ sudo apt-get install tcl-dev tk-dev
+$ sudo apt-get install libcairo2-dev
+$ sudo apt-get install mesa-common-dev libglu1-mesa-dev
+$ sudo apt-get install libncurses-dev
+$ git clone https://github.com/RTimothyEdwards/magic
+$ cd magic
+$ ./configure
+$ make
+$ sudo make install        #(Perform 'sudo make install' instead of just 'make install'. This will help you avoid running into 'permission related' errors.)
+```
 
-This completes the NgSpice installation.
 
