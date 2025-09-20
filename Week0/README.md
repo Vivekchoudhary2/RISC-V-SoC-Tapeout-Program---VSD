@@ -123,4 +123,4 @@ $ python3 -m pip --version
 $ make --version
 $ python3 -m venv -h
 ```
-![Dependencies status](Images/docker_installation.png)
+![Dependencies status](Images/dependencies_status.png)
