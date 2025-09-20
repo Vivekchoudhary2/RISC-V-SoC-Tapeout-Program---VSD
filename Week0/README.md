@@ -67,3 +67,8 @@ $ sudo make install
 
 #### **Solution 1**
 ![Automake solution](Images/solution_1.png)
+
+![NgSPice installation](Images/ngspice_installation.png)
+
+This completes the NgSpice installation.
+
