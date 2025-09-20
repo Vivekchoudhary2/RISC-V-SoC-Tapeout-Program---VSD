@@ -46,3 +46,19 @@ $ sudo apt install gtkwave
 ```
 ![GTKWave Installation](Images/gtk_wave_installation.png)
 
+#### <ins>**ngspice**</ins>
+```bash
+After downloading the tarball from https://sourceforge.net/projects/ngspice/files/ to a local
+directory, unpack it using 'Extract To' button.
+
+$ cd ngspice-45.2
+$ mkdir release
+$ cd release              
+$ ../configure --with-x --with-readline=yes --disable-debug
+# Your system doesn’t have aclocal-1.16 (Automake), and the build is trying to regenerate aclocal.m4. Install automake 1.16 (plus autoconf, m4, perl) to fix it. (Error 1)
+$ sudo apt update
+$ sudo apt install automake autoconf libtool m4 perl
+$ aclocal --version
+$ make
+$ sudo make install
+```
