@@ -30,7 +30,15 @@ sudo apt-get upgrade
 sudo apt install -y build-essential python3 python3-venv python3-pip python3-tk curl make git
 ```
 
-### **Step 3: Clone and Build OpenLane**
+### **Step 3: Certain necessary steps to ensure the 'make' commands work as intended**
+```
+The PDK was tested on version: 0fe599b2afb6708d281543108caf8310912f54af.
+Therefore, in the 'makefile' within OpenLANE directory certain changes needs to be made. These are as follows-
+
+```
+![OpenLANE Installation](Images/reference.png)
+
+### **Step 4: Clone and Build OpenLane**
 ```bash
 cd $HOME
 git clone https://github.com/The-OpenROAD-Project/OpenLane
