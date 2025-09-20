@@ -30,7 +30,7 @@ $ sudo apt-get upgrade
 $ sudo apt install -y build-essential python3 python3-venv python3-pip python3-tk curl make git
 ```
 
-### **Step 3: Certain necessary steps to ensure the 'make' commands work as intended**
+### **Step 3: Certain necessary steps to ensure the 'make' command in step-4 works as intended**
 ```
 In case, you need to know the recent version of the PDK, make use of following commands within youe virtual environment.
 
