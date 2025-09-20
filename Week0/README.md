@@ -30,7 +30,7 @@ $ make
 $ sudo make install
 ```
 #### **Yosys**
-![Yosys Installation Done](Week0/Images/yosys_installation_done.png)
+![Yosys Installation Done](Images/yosys_installation_done.png)
 
 
 #### <ins>**Iverilog**</ins>
@@ -38,12 +38,14 @@ $ sudo make install
 $ sudo apt-get update
 $ sudo apt-get install iverilog
 ```
-![Alt Text](Images/iverilog_status.png)
+#### **Iverilog**
+![Iverilog Status](Images/iverilog_installation.png)
 
 #### <ins>**gtkwave**</ins>
 ```bash
 $ sudo apt-get update
 $ sudo apt install gtkwave
 ```
-![Alt Text](Images/gtkwave_installation_done.jpeg)
+#### **GTKWave**
+![GTKWave Installation](Images/gtk_wave_installation.png)
 
