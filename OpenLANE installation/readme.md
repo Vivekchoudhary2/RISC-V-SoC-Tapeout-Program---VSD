@@ -44,6 +44,8 @@ make test
 
 </div>
 
+![OpenLANE Installation](Images/reference.png)
+
 ---
 
 <div align="center">
