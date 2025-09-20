@@ -37,7 +37,7 @@ $ git submodule update --init --recursive
 $ make 
 $ sudo make install
 ```
-![Alt text](Week0/Images/yosys_installation_done.png)
+![Alt text](RISC-V-SoC-Tapeout-Program---VSD/Week0/Images/yosys_installation_done.png)
 
 #### <ins>**Iverilog**</ins>
 ```bash
