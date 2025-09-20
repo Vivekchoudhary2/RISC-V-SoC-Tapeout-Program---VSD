@@ -47,11 +47,14 @@ Therefore, in the 'makefile' within OpenLANE directory certain changes needs to 
 
 ### **Step 4: Clone and Build OpenLane**
 ```bash
-cd $HOME
-git clone https://github.com/The-OpenROAD-Project/OpenLane
-cd OpenLane
-make
-make test
+$ cd $HOME
+$ git clone https://github.com/The-OpenROAD-Project/OpenLane
+$ cd OpenLane
+
+MAKE SURE TO FOLLOW STEP-3 AND SET THE APPROPIATE PDK VERSION. THEN CONTINUE WITH 'make' command.
+
+$ make
+$ make test
 ```
 <div align="center">
 
