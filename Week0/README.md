@@ -55,10 +55,15 @@ $ cd ngspice-45.2
 $ mkdir release
 $ cd release              
 $ ../configure --with-x --with-readline=yes --disable-debug
-# Your system doesn’t have aclocal-1.16 (Automake), and the build is trying to regenerate aclocal.m4. Install automake 1.16 (plus autoconf, m4, perl) to fix it. (Error 1)
+# (Error 1) - Your system doesn’t have aclocal-1.16 (Automake), and the build is trying to regenerate aclocal.m4. Install automake 1.16 (plus autoconf, m4, perl) to fix it. You need to tun the following commands before running 'make'.
 $ sudo apt update
 $ sudo apt install automake autoconf libtool m4 perl
 $ aclocal --version
 $ make
 $ sudo make install
 ```
+#### **Error 1**
+![Automake error](Images/error_1.png)
+
+#### **Solution 1**
+![Automake solution](Images/solution_1.png)
