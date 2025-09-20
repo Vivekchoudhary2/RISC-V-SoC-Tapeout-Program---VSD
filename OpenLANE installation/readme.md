@@ -32,7 +32,7 @@ $ sudo apt install -y build-essential python3 python3-venv python3-pip python3-t
 
 ### **Step 3: Certain necessary steps to ensure the 'make' command in step-4 works as intended**
 ```
-In case, you need to know the recent version of the PDK, make use of following commands within youe virtual environment.
+In case, you run into VERSION errors and need to know the recent version of the PDK, make use of following commands within your virtual environment.
 
 $ source ./venv/bin/activate
 $ ciel ls-remote --pdk-family sky130
@@ -41,7 +41,7 @@ $ ./venv/bin/ciel enable --pdk-family sky130 a80ed405766c5d4f21c8bfca84552a7478f
 ![PDK VERSIONS](Images/pdk_versions.png)
 ```
 The PDK was tested on version: 0fe599b2afb6708d281543108caf8310912f54af.
-Therefore, in the 'makefile' within OpenLANE directory certain changes needs to be made. This are as follows-
+Therefore, in the 'makefile' within OpenLANE directory certain changes needs to be made. This is as follows-
 ```
 ![PDK VERSION UPDATE](Images/pdk_version_update.png)
 
