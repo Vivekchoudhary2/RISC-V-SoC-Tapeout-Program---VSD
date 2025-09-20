@@ -88,3 +88,28 @@ $ sudo make install        #(Perform 'sudo make install' instead of just 'make i
 ```
 ![Magic installation](Images/magic_installation.png)
 
+#### <ins>**OpenLANE**</ins>
+```bash
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt install -y build-essential python3 python3-venv python3-pip make git
+$ sudo apt install -y ca-certificates curl gnupg lsb-release
+$ sudo mkdir -p /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+$ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+  https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+$ sudo apt update
+$ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+$ sudo docker run hello-world
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+$ sudo reboot                        # After reboot
+$ docker run hello-world
+```
+![Docker installation](Images/docker_installation.png)
