@@ -86,5 +86,5 @@ $ ./configure
 $ make
 $ sudo make install        #(Perform 'sudo make install' instead of just 'make install'. This will help you avoid running into 'permission related' errors.)
 ```
-
+![Magic installation](Images/magic_installation.png)
 
