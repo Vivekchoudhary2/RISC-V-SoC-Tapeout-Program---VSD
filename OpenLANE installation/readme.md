@@ -38,4 +38,50 @@ cd OpenLane
 make
 make test
 ```
+<div align="center">
 
+✅ **OpenLane Successfully Installed**
+
+</div>
+
+---
+
+<div align="center">
+
+## 🎉 **Installation Complete!**
+
+### **Verification Commands**
+
+```bash
+# Test Docker
+docker --version
+
+# Test OpenLane
+cd $HOME/OpenLane
+make test
+```
+
+| Component | Status | Version Check |
+|-----------|--------|---------------|
+| 🐳 **Docker** | ✅ Ready | `docker --version` |
+| 🧰 **OpenLane** | ✅ Ready | `cd OpenLane && make test` |
+
+### 🚀 **Ready for RTL-to-GDSII Flow!**
+
+</div>
+
+---
+
+<div align="center">
+
+### 📚 **Useful Resources**
+
+[![OpenLane Docs](https://img.shields.io/badge/OpenLane-Documentation-blue?style=flat-square)](https://openlane.readthedocs.io/)
+[![Docker Docs](https://img.shields.io/badge/Docker-Documentation-blue?style=flat-square)](https://docs.docker.com/)
+[![WSL Guide](https://img.shields.io/badge/WSL-Guide-green?style=flat-square)](https://docs.microsoft.com/en-us/windows/wsl/)
+
+</div>
+
+---
+
+> 💡 **Next Steps:** You're now ready to run OpenLane flows for your digital designs! Check
