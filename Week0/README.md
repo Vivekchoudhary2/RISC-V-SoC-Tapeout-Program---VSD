@@ -113,3 +113,14 @@ $ sudo reboot                        # After reboot
 $ docker run hello-world
 ```
 ![Docker installation](Images/docker_installation.png)
+
+#### <ins>**Check dependencies**</ins>
+```bash
+$ git --version
+$ docker --version
+$ python3 --version
+$ python3 -m pip --version
+$ make --version
+$ python3 -m venv -h
+```
+![Dependencies status](Images/docker_installation.png)
