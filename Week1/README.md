@@ -1,4 +1,4 @@
-# LAB 1
+# LAB 1 - Simulating a 2-to-1 Multiplexer
 
 
 ``` bash
