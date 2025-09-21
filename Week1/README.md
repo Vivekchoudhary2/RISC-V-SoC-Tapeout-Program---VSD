@@ -19,4 +19,5 @@ $ ./a.out        # Gives the follwoing output: VCD info: dumpfile tb_good_mux.vc
 # To view the waveform using GTKWave, use the following command:
 $ gtkwave tb_good_mux.vcd
 ```
+![GTKWave simulator Success](Images/gtk_success.png)
 ![GTKWave simulator](Images/gtkwave.png)
