@@ -1,3 +1,13 @@
+What is a System-on-Chip (SoC)?
+
+Components of a typical SoC (CPU, memory, peripherals, interconnect).
+
+Why BabySoC is a simplified model for learning SoC concepts.
+
+The role of functional modelling before RTL and physical design stages. 
+
+
+
 # 📘 System on Chip (SoC)
 
 ## 🔹 What is a System on Chip (SoC)?
