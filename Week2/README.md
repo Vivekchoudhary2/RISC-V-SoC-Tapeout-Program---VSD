@@ -17,7 +17,9 @@ This single silicon chip consists of various modules/parts that perform speciali
 3. **Qualcomm Haven Security Module** – Enhances device security through advanced encryption and secure data handling.  
 4. **Other Integrated Components** – CPU, GPU, modem, memory controllers, and more.  
 
-Each of this part performs different functions but, are all integrated onto a single chip.  
+Each of this part performs different functions but, are all integrated onto a single chip. 
+
+It is an entire system on a chip.
 
 <div align="center">
   <img width="625" height="478" alt="Snapdragon 835 Example" src="https://github.com/user-attachments/assets/1aa702ad-c09a-45b1-9d0f-81a836feecd1" />
