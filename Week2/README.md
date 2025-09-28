@@ -3,7 +3,7 @@
 ## 🔹 What is a System on Chip (SoC)?
 A **System on Chip (SoC)** is the integration of complex functionalities onto a **single silicon chip**.  
 
-Instead of using discrete multiple chips for CPU, memory, I/O, specialized processors and connecting them onto a PCB, a SoC consolidates them into one compact package. This makes SoCs **highly efficient**, **cost-effective**, and well-suited for **embedded systems** and **mobile devices**.
+Instead of using discrete multiple chips for CPU, memory, I/O, specialized processors and connecting them onto a PCB, a SoC consolidates them into one compact package.
 
 ---
 
