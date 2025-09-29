@@ -132,7 +132,7 @@ A typical PLL consists of three main parts working in a feedback loop:
 
 ### ⏱️ Phase-Locked Loop (PLL) Operation
 
-The basic concept of a **Phase-Locked Loop (PLL)** is simple: it synchronizes the output frequency of an oscillator with a reference signal by continuously comparing their phases and adjusting accordingly.  
+The basic concept of a **Phase-Locked Loop (PLL)** is simple: it synchronizes the output frequency of an oscillator with the frequency of a reference signal by continuously comparing their phases and adjusting accordingly.
 
 ---
 
@@ -143,26 +143,30 @@ The basic concept of a **Phase-Locked Loop (PLL)** is simple: it synchronizes th
 
 ---
 
-#### ⚙️ How It Works
-1. A **reference signal** and the **VCO output** are provided to the **phase detector**.  
-2. The **phase detector** produces an **error voltage** proportional to the phase difference between these two signals.  
-3. This **error voltage** passes through a **low-pass filter**, which removes high-frequency noise.  
-4. The filtered control voltage is then applied to the **VCO**, adjusting its frequency.  
-5. The **VCO output** gradually aligns with the reference signal, ensuring both signals stay synchronized in phase and frequency.  
+<div align="center">
+  <img width="754" height="416" alt="pll_bd" src="https://github.com/user-attachments/assets/f82c43ec-b572-4650-9a38-da05811691b8" />
+  <br/>
+  <em>Figure: Basic block diagram of a working PLL</em>
+</div>
 
 ---
 
 <div align="center">
   <img width="531" height="502" alt="Phase Detector Block Diagram" src="https://github.com/user-attachments/assets/2258636d-0d8a-4bec-ba52-ba090d8de9fc" />
   <br/>
-  <em>Figure: Basic operation of a Phase Detector within a PLL system</em>
+  <em>Figure: Phase difference</em>
 </div>
 
 ---
 
-Within a phase detector, the phase of input signal and reference signal is compared and a resulting difference or error voltage is produced. This error signal passes through a low-pass filter which removes any high frequency elements of signal. Once through the filter, ther error signal is applied to VCO as its tuning voltage.
+Within a phase detector, the phase of the input signal and reference signal is compared and a resulting difference or error voltage is produced. This error signal passes through a low-pass filter which removes any high-frequency elements of the signal. Once through the filter, the error signal is applied to the VCO as its tuning voltage.
 
-So, when the output from phase detector is passed to loop filter and when that filtered signal is applied to VCO, the VCO generates an corresponding error signal to match the phase of input signal to reference signal by either increasing/decreasing the frequency of input signal.
+So, when the output from the phase detector is passed to the loop filter and when that filtered signal is applied to the VCO, the VCO generates a corresponding error signal(voltage signal) trying to match the phase of the input signal to the reference signal by either increasing or decreasing the frequency of the input signal.
+
+Initially, there will be some difference in phase between the two signals or in other words, the loop will be out of lock and the error voltage will pull the frequency of the VCO towards that of the reference, until it cannot reduce the error any further and the loop is locked.
+
+A steady error voltage is produced indicating a constant phase difference between the input and reference signal. As the phase between these two signals is not changing, it means that the two signals are on exactly the same frequency.
+
 
 
 ## 🎵 3. The Translator: The Digital-to-Analog Converter (DAC)
