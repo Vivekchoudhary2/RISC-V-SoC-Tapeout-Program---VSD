@@ -38,3 +38,32 @@ It is an entire system on a chip.
 </div>
 
 ---
+
+## 🔹 Components of a Typical SoC
+A typical SoC incorporates several functional units as shown earlier:
+
+1. **Central Processing Unit (CPU)**  
+   - The key component that handles data processing, computations, and decision-making.  
+
+2. **Memory**  
+   - Includes both **RAM** (for temporary data generated while code is running) and **ROM** (for permanent storage such as the operating system code).  
+
+3. **Peripheral Devices and Interfaces**  
+   - Connect the SoC to external devices and the real world.  
+   - Examples: USB, PCIe, UART, SPI, I²C.  
+
+4. **Accelerated Functional Units**  
+   - Specialized units that boost performance for specific tasks.  
+   - Examples: Encryption/Decryption accelerators, audio/video signal processors.  
+
+5. **Graphics Processing Unit (GPU)**  
+   - Responsible for producing visuals on the screen.  
+   - Also leveraged for highly parallel tasks such as matrix multiplications in **robotics, AI, and animation frameworks**.  
+
+6. **Power Management Unit (PMU)**  
+   - Regulates power usage within the SoC.  
+   - Ensures efficient operation and extends battery life in portable devices.  
+
+7. **Mixed-Technology Units**  
+   - Combines **analog** and **digital** components to achieve required functionality.  
+   - Examples: **MEMS** (Micro-Electro-Mechanical Systems) and **RF** (Radio Frequency) components.  
