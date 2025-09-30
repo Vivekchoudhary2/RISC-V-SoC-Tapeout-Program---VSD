@@ -172,17 +172,81 @@ A steady error voltage is produced indicating a constant phase difference betwee
 ## 🎵 3. The Translator: The Digital-to-Analog Converter (DAC)
 
 ### 3.1 What is the DAC's Primary Job?
-The **Digital-to-Analog Converter (DAC)** translates **digital values** (0s and 1s) into **analog signals** that real-world devices (like speakers, displays, or sensors) can use.
+The **Digital-to-Analog Converter (DAC)** converts **digital values** (0s and 1s) into **analog signals** that real-world devices (like speakers, displays, or sensors) can use.  
+It does this by recognizing that each digit, or **bit**, in a binary number has a specific *weight* based on its position.  
+This bit weight is calculated using powers of 2 (**2ⁿ**), where **n** is counted from right to left starting at 0:
+
+- **Bit 0 (rightmost):** Weight = 2⁰ = 1  
+- **Bit 1:** Weight = 2¹ = 2  
+- **Bit 2:** Weight = 2² = 4  
+- **Bit 3:** Weight = 2³ = 8  
+
+---
 
 ### 3.2 The DAC in VSDBabySoC
-- **Type**: A **10-bit DAC**, capable of representing 1,024 distinct voltage levels.  
-- **Function**: Receives digital data from **RVMYTH’s r17 register** and outputs the corresponding analog signal.  
-- **Application**: The output is stored in a file named `OUT` and can be used by devices like **TVs, mobile phones, or speakers**.  
+In the VSDBabySoC design, we are utilizing a 10-bit DAC, which means it can take a digital input represented by 10 bits and convert it into an analog output. 
+
+---
 
 ### 3.3 How DACs are Built
-DACs are commonly implemented using:  
-- **Weighted Resistor DAC**  
-- **R-2R Ladder DAC**  
+DACs are commonly implemented using two methods:
+
+<details>
+<summary>🔹 Weighted Resistor DAC</summary>
+
+The weighted resistor method utilizes the summing operational amplifier circuit. The summing amplifier adds the input signals with different gains corresponding to their resistors.  
+
+---
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5472ec80-6602-4be3-b860-fc3dd0273889" alt="Summing-Amplifier-for-DAC" />
+  <br/>
+  <em>Basic summing operational amplifier circuit</em>
+</div>
+
+---
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e86d383d-a74b-4ad5-a8f9-65bb14e0957c" alt="Weighted-Resistor-DAC" />
+  <br/>
+  <em>Modified summing operational amplifier circuit including switches for taking inputs</em>
+</div>
+
+--- 
+
+</details>
+
+<details>
+<summary>🔹 R-2R Ladder DAC</summary>
+
+- Uses only **two resistor values**: **R** and **2R**.  
+- Much simpler, easier to manufacture, and scalable to higher bit counts.  
+
+---
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/ae169487-a2aa-4912-bbf7-b1c6a56e9209" alt="4-bit-R-2R-Ladder-DAC" />
+  <br/>
+  <em>4-bit R-2R Ladder DAC circuit</em>
+</div>
+
+---
+
+</details>
+
+For detailed and comprehensive example on how conversion actually takes place:  
+🔗 https://www.electricaltechnology.org/2020/04/digital-to-analog-converter-dac.html 
+
+---
+
+### 🔄 Comparison of DAC Methods
+
+| Feature                | Weighted Resistor Method                         | R-2R Ladder Method                       |
+|-------------------------|-------------------------------------------------|------------------------------------------|
+| **Resistor Values**     | Many unique, precisely scaled values            | Only two values (R and 2R)                |
+| **Precision**           | Decreases with more bits                        | High precision, scalable to many bits     |
+| **Practicality**        | Hard to implement for large binary numbers      | Easy to design and manufacture            |
+
 
 ---
 
