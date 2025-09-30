@@ -40,7 +40,7 @@ $ gtkwave tb_good_mux.vcd
 
 ---
 
-### LAB work with Yosys
+## 🔹 LAB work with Yosys
 
 ```bash
 $ yosys
