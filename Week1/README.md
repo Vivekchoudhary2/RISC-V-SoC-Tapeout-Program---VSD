@@ -21,3 +21,23 @@ $ gtkwave tb_good_mux.vcd
 ```
 ![GTKWave simulator Success](Images/gtk_success.png)
 ![GTKWave simulator](Images/gtkwave.png)
+
+
+### LAB work with Yosys
+
+```bash
+$ yosys
+
+yosys> read_liberty -lib path to your .lib file
+
+yosys> read_verilog good_mux.v    # To read the verilog module
+
+yosys> synth -top good_mux        # To synthesize the top module
+
+yosys> abc -liberty /root/VLSI/sky130RTLDesignAndSynthesisWorkshop/DC_WORKSHOP/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+                                  # To generate the netlist. This command maps the RTL code to standard cells in the '.lib' file.
+
+yosys> write_verilog -noattr good_mux_netlist.v
+                                  # To view the clean generated netlist file.
+
+```
