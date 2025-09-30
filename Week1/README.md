@@ -131,3 +131,8 @@ It contains **characterization data** of standard cells for synthesis, timing, a
 - **tt** → typical process  
 - **025C** → 25 °C  
 - **1v80** → 1.8 V supply
+
+<div align="center"> 
+  <img src="Images/sample_lib_file.png" alt="Sample Liberty file"/> <br/> 
+  <em>Glance within a .lib file</em> 
+</div>
