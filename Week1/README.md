@@ -1,4 +1,9 @@
-# 🧪 LAB 1 - Simulating a 2-to-1 Multiplexer
+# 🔬 VLSI Design Labs
+
+---
+
+<details>
+<summary>🧪 LAB 1 - Simulating a 2-to-1 Multiplexer</summary>
 
 ---
 
@@ -86,3 +91,8 @@ yosys> write_verilog -noattr good_mux_netlist.v
 </div>
 
 ---
+</details>
+
+
+
+<details> <summary>🧪 LAB 2 - Placeholder</summary>
