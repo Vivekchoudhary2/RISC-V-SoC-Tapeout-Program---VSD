@@ -95,4 +95,39 @@ yosys> write_verilog -noattr good_mux_netlist.v
 
 
 
-<details> <summary>🧪 LAB 2 - Placeholder</summary>
+<details> <summary>🧪 LAB 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles </summary>
+
+## 📘 Introduction to Timing `.lib` Files
+
+A **timing library (`.lib`)** is a text-based file (Liberty format) used in **VLSI design flow**.  
+It contains **characterization data** of standard cells for synthesis, timing, and power analysis.
+
+---
+
+## 🔹 What `.lib` Contains
+1. **Cell Definitions**
+     - Pin names
+     - Pin directions (input/output)
+     - Logic functions
+
+2. **Timing Information**
+   - Propagation delay  
+   - Setup & hold times  
+   - Recovery & removal times  
+   - Timing arcs (input → output)
+
+3. **Power Information**
+   - Internal switching power  
+   - Leakage power  
+   - Dynamic vs. static consumption
+
+4. **PVT Corners**
+   - `.lib` files are created for multiple **process-voltage-temperature (PVT)** corners:
+     - **P (Process):** fast, slow, typical fabrication variations  
+     - **V (Voltage):** supply variations  
+     - **T (Temperature):** operating environment  
+   
+   what is meaning of sky130_fd_sc_hd__tt_025C_1v80.lib
+- **tt** → typical process  
+- **025C** → 25 °C  
+- **1v80** → 1.8 V supply
