@@ -1,13 +1,3 @@
-What is a System-on-Chip (SoC)?
-
-Components of a typical SoC (CPU, memory, peripherals, interconnect).
-
-Why BabySoC is a simplified model for learning SoC concepts.
-
-The role of functional modelling before RTL and physical design stages. 
-
-
-
 # 📘 System on Chip (SoC)
 
 ## 🔹 What is a System on Chip (SoC)?
@@ -27,7 +17,7 @@ This single silicon chip consists of various modules/parts that perform speciali
 3. **Qualcomm Haven Security Module** – Enhances device security through advanced encryption and secure data handling.  
 4. **Other Integrated Components** – CPU, GPU, modem, memory controllers, and more.  
 
-Each of this part performs different functions but, are all integrated onto a single chip. 
+Each of these parts performs different functions but, are all integrated onto a single chip.  
 
 It is an entire system on a chip.
 
@@ -68,7 +58,10 @@ A typical SoC incorporates several functional units as shown earlier:
    - Combines **analog** and **digital** components to achieve required functionality.  
    - Examples: **MEMS** (Micro-Electro-Mechanical Systems) and **RF** (Radio Frequency) components.  
 
-## 🔹 Types of SoCs
+---
+
+<details>
+<summary>🔹 Types of SoCs</summary>
 
 1. **Microcontroller-based SoC**  
    - Designed for simple control tasks in everyday devices.  
@@ -82,10 +75,16 @@ A typical SoC incorporates several functional units as shown earlier:
    - Custom hardware designed to **excel in specific performance areas**, such as graphics processing, AI, or multimedia applications.  
    - Optimized for **speed, efficiency, and dedicated functionality**.  
 
-## 🔹 Why BabySoC is a simplified model for learning SoC concepts?
-VSDBabySoC is a compact SoC and based on the RISC-V architecture. It incorporates RVMYTH microprocessor, an 8x phase-locked loop(PLL) and a 10-bit digital-to-analog converter(DAC).
+</details>
+
+---
+
+## 🔹 Why BabySoC is a Simplified Model for Learning SoC Concepts?
+VSDBabySoC is a compact SoC and based on the RISC-V architecture. It incorporates RVMYTH microprocessor, an 8x phase-locked loop (PLL), and a 10-bit digital-to-analog converter (DAC).  
 
 It is a complex system simplified down to its three most essential functions: processing, timing, and real-world communication.
+
+---
 
 # 🍼 Understanding VSDBabySoC: A Beginner's Guide to its Core Components
 
@@ -104,18 +103,22 @@ This document will break down each of these three building blocks:
 
 to reveal how they collaborate to create a functioning system.
 
-
+---
 
 ## 🧠 1. The Brain: RVMYTH (The RISC-V CPU)
 RVMYTH is the **central processing unit (CPU)** or the "brain" of the BabySoC. Its main function is to **execute instructions** and **manage the flow of data** through the system by communicating with the other components.
 
+---
 
 ## ⏱️ 2. The Pacemaker: The Phase-Locked Loop (PLL)
 
 ### 2.1 What is the PLL's Primary Job?
 The **Phase-Locked Loop (PLL)** acts as the system’s **pacemaker**. It generates a **stable, synchronized clock signal**, ensuring all components (CPU, DAC, etc.) work in harmony and avoid timing errors.
 
-### 2.2 Why an On-Chip Clock is Essential
+---
+
+<details>
+<summary>🔹 Why an On-Chip Clock is Essential</summary>
 
 | Problem with Off-Chip Clocks | How the On-Chip PLL Solves It |
 |-------------------------------|-------------------------------|
@@ -124,13 +127,24 @@ The **Phase-Locked Loop (PLL)** acts as the system’s **pacemaker**. It generat
 | **Different Frequency Needs**: Components may require different speeds. | Can multiply frequencies (e.g., 8x PLL generates 8× reference input). |
 | **Crystal Frequency Deviations**: External crystals drift with age/temperature. | Provides an internal stable reference, correcting deviations. |
 
-### 2.3 Inside the PLL
+</details>
+
+---
+
+<details>
+<summary>🔹 Inside the PLL</summary>
+
 A typical PLL consists of three main parts working in a feedback loop:  
 - **Phase Detector**: Compares input and output signals to generate an error signal.  
 - **Loop Filter**: Processes the error signal into a stable control voltage.  
 - **Voltage-Controlled Oscillator (VCO)**: Adjusts its output to match the reference signal.  
 
-### ⏱️ Phase-Locked Loop (PLL) Operation
+</details>
+
+---
+
+<details>
+<summary>🔹 Phase-Locked Loop (PLL) Operation</summary>
 
 The basic concept of a **Phase-Locked Loop (PLL)** is simple: it synchronizes the output frequency of an oscillator with the frequency of a reference signal by continuously comparing their phases and adjusting accordingly.
 
@@ -161,13 +175,15 @@ The basic concept of a **Phase-Locked Loop (PLL)** is simple: it synchronizes th
 
 Within a phase detector, the phase of the input signal and reference signal is compared and a resulting difference or error voltage is produced. This error signal passes through a low-pass filter which removes any high-frequency elements of the signal. Once through the filter, the error signal is applied to the VCO as its tuning voltage.
 
-So, when the output from the phase detector is passed to the loop filter and when that filtered signal is applied to the VCO, the VCO generates a corresponding error signal(voltage signal) trying to match the phase of the input signal to the reference signal by either increasing or decreasing the frequency of the input signal.
+So, when the output from the phase detector is passed to the loop filter and when that filtered signal is applied to the VCO, the VCO generates a corresponding error signal (voltage signal) trying to match the phase of the input signal to the reference signal by either increasing or decreasing the frequency of the input signal.
 
 Initially, there will be some difference in phase between the two signals or in other words, the loop will be out of lock and the error voltage will pull the frequency of the VCO towards that of the reference, until it cannot reduce the error any further and the loop is locked.
 
 A steady error voltage is produced indicating a constant phase difference between the input and reference signal. As the phase between these two signals is not changing, it means that the two signals are on exactly the same frequency.
 
+</details>
 
+---
 
 ## 🎵 3. The Translator: The Digital-to-Analog Converter (DAC)
 
@@ -212,7 +228,7 @@ The weighted resistor method utilizes the summing operational amplifier circuit.
   <em>Modified summing operational amplifier circuit including switches for taking inputs</em>
 </div>
 
---- 
+---
 
 </details>
 
@@ -246,7 +262,6 @@ For detailed and comprehensive example on how conversion actually takes place:
 | **Resistor Values**     | Many unique, precisely scaled values            | Only two values (R and 2R)                |
 | **Precision**           | Decreases with more bits                        | High precision, scalable to many bits     |
 | **Practicality**        | Hard to implement for large binary numbers      | Easy to design and manufacture            |
-
 
 ---
 
