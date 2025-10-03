@@ -1,5 +1,11 @@
-# 📘 System on Chip (SoC)
+# 📘 System on Chip (SoC) & VSDBabySoC LAB
 
+---
+
+<details>
+
+<summary>📦 System on Chip (SoC)</summary>
+	
 ## 🔹 What is a System on Chip (SoC)?
 A **System on Chip (SoC)** is the integration of complex functionalities onto a **single silicon chip**.  
 
@@ -283,8 +289,12 @@ The **VSDBabySoC** is an excellent educational tool because it clearly demonstra
 
 Its modularity highlights a core truth of SoC design:  
 ➡️ Individual components, each with a clear role, must work in **perfect synchrony** to bridge the **digital world** with our **analog reality**.
+</details>
 
-# LAB
+---
+
+<details>
+<summary>🧪 LAB</summary>
 
 Prerequisite steps for compiling BabySoC verilog modules:
 ```bash
@@ -395,3 +405,9 @@ $ gtkwave dump.vcd
 </div>
 
 ---
+
+
+
+## Operation
+
+
