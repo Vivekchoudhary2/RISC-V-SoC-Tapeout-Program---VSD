@@ -379,8 +379,9 @@ $ gtkwave dump.vcd
 
 ---
 
+
 <div align="center">
- <img width="1854" height="1040" alt="image" src="https://github.com/user-attachments/assets/cae9453c-db1c-4107-9c8c-d41a33636fdc" />
+ <img width="1854" height="1040" alt="waveform_with_warning" src="https://github.com/user-attachments/assets/a770f736-fcab-477b-aba3-0e83d5340b9c" />
   <br/>
   <em> Waveform with warning </em>
 </div>
