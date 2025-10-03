@@ -293,11 +293,33 @@ $ cd VSDBabySoC/src/module/
 $ sandpiper-saas -i rvmyth.tlv -o rvmyth.v        # Convert the rvmyth.tlv file to rvmyth.v file. After this you will have file named 'rvmyth.v'.
 $ sed -i '/^`line/d' rvmyth.v
 $ sed -i '/^`line/d' rvmyth_gen.v                 # TL-Verilog to Verilog conversion (sandpiper) usually inserts `line directives into the generated .v file so that error messages can trace                                                      back to the original .tlv.
-                                                  # Icarus Verilog (iverilog) does not like seeing those directives inside macro expansions, and it chokes on them.
+                                                  # Icarus Verilog (iverilog) does not like seeing those directives inside macro expansions, and it chokes on them. It is shown in the image
+													below. The error rises when putting modules through iverilog simulator.
 
                                                   # If still any '`line' directives are left, you can remove them manually by deleting that entire line.
 
+												  # The ultimate goal is to remove all ' `line ' directives.
+
 ```
+
+---
+<div align="center">
+  <img width="1275" height="417" alt="sandpiper" src="https://github.com/user-attachments/assets/32a377c1-1ea5-4f63-b545-5c65730a5f5c" />
+  <br/>
+  <em>Conversion of .tlv file to .v file with Sandpiper</em>
+</div>
+
+
+
+---
+
+<div align="center">
+ <img width="1518" height="399" alt="line_directive_error" src="https://github.com/user-attachments/assets/8dfd02da-7f7b-46b7-a6a3-59b909ae1d88" />
+  <br/>
+  <em> `line directive error</em>
+</div>
+
+---
 
 Then I used CHATGPT to create a Makefile and saved it in the 'module' folder and looked as shown below:
 ```Makefile
@@ -341,6 +363,34 @@ $ make
             # Here, I got a warning saying that 'The delays where mixed and I had to explicitly mention the delays with the help of '`timescale 1ns/ 1ps' line at the top of every verilog                   module. I did the changes in 'vsdbabysoc.v, rvmyth.v, avsddac.v, avsdpll.v, clk_gate.v'.
             # After implementing the changes, I ran the 'make' command again and got 'dump.vcd' file. I viewed the .vcd file.
 
+			# If you continue to view the dump file generated with timescale warning, you won't get the actual waveforms. The warnings must resolved to view actual waveforms.
+
 $ gtkwave dump.vcd
 ```
 
+
+---
+
+<div align="center">
+ <img width="1308" height="226" alt="image" src="https://github.com/user-attachments/assets/803b1632-2945-4413-8436-1380219997d6" />
+  <br/>
+  <em> timescale warning during execution of 'make' command </em>
+</div>
+
+---
+
+<div align="center">
+ <img width="1854" height="1040" alt="image" src="https://github.com/user-attachments/assets/cae9453c-db1c-4107-9c8c-d41a33636fdc" />
+  <br/>
+  <em> Waveform with warning </em>
+</div>
+
+---
+
+<div align="center">
+ <img width="1854" height="1040" alt="dac" src="https://github.com/user-attachments/assets/793c2245-869c-4722-ba67-03c2fedf754d" />
+  <br/>
+  <em> Waveform without warning </em>
+</div>
+
+---
