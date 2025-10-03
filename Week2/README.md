@@ -283,3 +283,64 @@ The **VSDBabySoC** is an excellent educational tool because it clearly demonstra
 
 Its modularity highlights a core truth of SoC design:  
 ➡️ Individual components, each with a clear role, must work in **perfect synchrony** to bridge the **digital world** with our **analog reality**.
+
+# LAB
+
+Prerequisite steps for compiling BabySoC verilog modules:
+```bash
+$ git clone https://github.com/manili/VSDBabySoC.git
+$ cd VSDBabySoC/src/module/
+$ sandpiper-saas -i rvmyth.tlv -o rvmyth.v        # Convert the rvmyth.tlv file to rvmyth.v file. After this you will have file named 'rvmyth.v'.
+$ sed -i '/^`line/d' rvmyth.v
+$ sed -i '/^`line/d' rvmyth_gen.v                 # TL-Verilog to Verilog conversion (sandpiper) usually inserts `line directives into the generated .v file so that error messages can trace                                                      back to the original .tlv.
+                                                  # Icarus Verilog (iverilog) does not like seeing those directives inside macro expansions, and it chokes on them.
+
+                                                  # If still any '`line' directives are left, you can remove them manually by deleting that entire line.
+
+```
+
+Then I used CHATGPT to create a Makefile and saved it in the 'module' folder and looked as shown below:
+```Makefile
+# Top-level sources
+TLV     = rvmyth.tlv
+VERILOG = rvmyth.v rvmyth_gen.v
+TOP     = testbench.v
+
+# SandPiper binary (adjust path if needed)
+SANDPIPER = sandpiper
+
+# Default target
+all: sim
+
+# Step 1: Generate Verilog from TLV
+$(VERILOG): $(TLV)
+	$(SANDPIPER) -i $(TLV) -o rvmyth.v
+	@echo "Cleaning TLV debug directives..."
+	sed -i '/^`line/d' rvmyth.v
+	@if [ -f rvmyth_gen.v ]; then sed -i '/^`line/d' rvmyth_gen.v; fi
+
+# Step 2: Compile with iverilog (SystemVerilog mode)
+simv: $(VERILOG) $(TOP)
+	iverilog -g2012 -o simv avsddac.v avsdpll.v clk_gate.v rvmyth.v vsdbabysoc.v testbench.v
+
+# Step 3: Run simulation
+sim: simv
+	vvp simv
+
+# Cleanup
+clean:
+	rm -f simv *.vcd $(VERILOG)
+
+.PHONY: all sim clean
+
+```
+Then I continued with the following commands in the 'module' directory:
+
+```bash
+$ make
+            # Here, I got a warning saying that 'The delays where mixed and I had to explicitly mention the delays with the help of '`timescale 1ns/ 1ps' line at the top of every verilog                   module. I did the changes in 'vsdbabysoc.v, rvmyth.v, avsddac.v, avsdpll.v, clk_gate.v'.
+            # After implementing the changes, I ran the 'make' command again and got 'dump.vcd' file. I viewed the .vcd file.
+
+$ gtkwave dump.vcd
+```
+
