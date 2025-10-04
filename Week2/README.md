@@ -296,15 +296,14 @@ Its modularity highlights a core truth of SoC design:
 <details>
 <summary>🧪 LAB</summary>
 
-Prerequisite steps for compiling BabySoC verilog modules:
+**Prerequisite steps for compiling BabySoC verilog modules:**
 ```bash
 $ git clone https://github.com/manili/VSDBabySoC.git
 $ cd VSDBabySoC/src/module/
 $ sandpiper-saas -i rvmyth.tlv -o rvmyth.v        # Convert the rvmyth.tlv file to rvmyth.v file. After this you will have file named 'rvmyth.v'.
 $ sed -i '/^`line/d' rvmyth.v
-$ sed -i '/^`line/d' rvmyth_gen.v                 # TL-Verilog to Verilog conversion (sandpiper) usually inserts `line directives into the generated .v file so that error messages can trace                                                      back to the original .tlv.
-                                                  # Icarus Verilog (iverilog) does not like seeing those directives inside macro expansions, and it chokes on them. It is shown in the image
-													below. The error rises when putting modules through iverilog simulator.
+$ sed -i '/^`line/d' rvmyth_gen.v                 # TL-Verilog to Verilog conversion (sandpiper) usually inserts `line directives into the generated .v file so that error messages can trace back to the original .tlv.
+                                                  # Icarus Verilog (iverilog) does not like seeing those directives inside macro expansions, and it chokes on them. It is shown in the image below. The error rises when putting modules through iverilog simulator.
 
                                                   # If still any '`line' directives are left, you can remove them manually by deleting that entire line.
 
@@ -417,7 +416,7 @@ $ gtkwave dump.vcd
 <div align="center">
   <img width="1517" height="390" alt="waveforms" src="https://github.com/user-attachments/assets/4e3bcfab-74a4-449b-b89b-2e60d841ad8e" />
   <br/>
-  <em>Figure: Waveforms demonstrating dataflow</em>
+  <em>Waveforms demonstrating dataflow</em>
 </div>
 
 ---
