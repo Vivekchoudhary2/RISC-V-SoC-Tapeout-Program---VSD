@@ -410,4 +410,8 @@ $ gtkwave dump.vcd
 
 ## Operation
 
+### Dataflow between modules
 
+The output from the core is 'OUT' signal which is 10-bits wide. This output signal drives input of 'DAC' module via a top-level signal named 'RV_TO_DAC'. 
+
+In the DAC module, the output signal from core drives the 'D' input. The DAC module gives real valued output between 0 & 1 since the highest and lowest reference voltages used are 1V & 0V respectively. This gives us a digital output as can be seen in the waveform.
