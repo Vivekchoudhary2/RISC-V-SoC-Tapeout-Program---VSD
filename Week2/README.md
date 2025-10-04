@@ -412,6 +412,73 @@ $ gtkwave dump.vcd
 
 ### Dataflow between modules
 
+---
+
+<div align="center">
+  <img width="1517" height="390" alt="waveforms" src="https://github.com/user-attachments/assets/4e3bcfab-74a4-449b-b89b-2e60d841ad8e" />
+  <br/>
+  <em>Figure: Waveforms demonstrating dataflow</em>
+</div>
+
+---
+
+1.) The OUT signal(datatype - reg) under core gets its value from the 18th bit of *CPU_Xreg_value_a5* register.
+
+2.) The OUT signal then drives input *D* of DAC module with the help of *RV_TO_DAC* signal under uut.
 The output from the core is 'OUT' signal which is 10-bits wide. This output signal drives input of 'DAC' module via a top-level signal named 'RV_TO_DAC'. 
 
-In the DAC module, the output signal from core drives the 'D' input. The DAC module gives real valued output between 0 & 1 since the highest and lowest reference voltages used are 1V & 0V respectively. This gives us a digital output as can be seen in the waveform.
+3.) The DAC then outputs a real valued signal *OUT*. Its value ranges between 0 & 1 since reference voltages used are 0V(lowest reference voltage) & 1V(highest reference voltage). The DAC module determines the output with help of certain formula as described below:
+
+OUT = VREFL + (D/1023)*(VREFH - VREFL).
+
+4.) The final OUT signal is produced as a digital output signal. The digital nature is induced beacuse of *wire* datatype used.
+
+### Why the Same Signal Looks Different in the Waveform Viewer?
+
+---
+
+<div align="center">
+  <img width="1086" height="150" alt="Screenshot from 2025-10-04 20-01-02" src="https://github.com/user-attachments/assets/f401ac67-a3e3-4a6c-bb52-fbb4b6b520db" />
+  <br/>
+  <em>Same signal but different shape of waveform observed</em>
+</div>
+
+---
+
+
+Explanation:
+
+In the simulation, the OUT signal from the DAC module(i.e. avsddac.v) is connected to the top-level module (uut). Although it's physically the same net, the waveform viewer displays it differently in each scope because of how the signal is declared in each module.
+
+```verilog
+reg real OUT;
+```
+---
+<div align="center">
+  <img width="322" height="567" alt="image" src="https://github.com/user-attachments/assets/d903fa69-1d61-45c7-a2ee-f2fda828bed1" />
+  <br/>
+  <em>Datatype used - real</em>
+</div>
+
+---
+
+Here, OUT is declared as a real type. Waveform viewers treat real values like analog signals and plot them as smooth or curved waveforms. Since OUT in this module holds floating-point values, the viewer renders it with analog-like curves.
+
+The same OUT signal is connected to a port that is declared as a wire:
+```verilog
+output wire OUT;
+```
+
+---
+<div align="center">
+  <img width="322" height="567" alt="image" src="https://github.com/user-attachments/assets/4f77cc20-c397-415d-b74b-39c3f2e07a61" />
+  <br/>
+  <em>Datatype used - wire</em>
+</div>
+
+---
+
+Since this port is interpreted as a logic signal, the waveform viewer displays it as a square wave, snapping to 0 or 1.
+
+
+
