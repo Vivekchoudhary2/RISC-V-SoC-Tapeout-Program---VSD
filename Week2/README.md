@@ -408,11 +408,11 @@ $ gtkwave dump.vcd
 
 
 
-## Operation
+# Operation
 
-### Dataflow between modules
+## Dataflow between modules
 
----
+
 
 <div align="center">
   <img width="1517" height="390" alt="waveforms" src="https://github.com/user-attachments/assets/4e3bcfab-74a4-449b-b89b-2e60d841ad8e" />
@@ -446,7 +446,7 @@ OUT = VREFL + (D/1023)*(VREFH - VREFL).
 ---
 
 
-Explanation:
+### Explanation:
 
 In the simulation, the OUT signal from the DAC module(i.e. avsddac.v) is connected to the top-level module (uut). Although it's physically the same net, the waveform viewer displays it differently in each scope because of how the signal is declared in each module.
 
@@ -480,5 +480,127 @@ output wire OUT;
 
 Since this port is interpreted as a logic signal, the waveform viewer displays it as a square wave, snapping to 0 or 1.
 
+## Clocking
+A PLL is used to boost frequency to 8 times the current frequency. But, how?
+
+```verilog
+initial begin
+   lastedge = 0.0;
+   period = 25.0; // 25 ns period = 40 MHz
+   CLK <= 0;
+end
+This code block is used for initialization purpose.
+```
+
+So at time 0:
+
+- Clock starts at 0
+
+- Initial clock period = 25 ns → 40 MHz
 
 
+
+```verilog
+if (ENb_VCO == 1'b1) begin
+   #(period / 2.0);
+   CLK <= (CLK === 1'b0);
+end
+else if (ENb_VCO == 1'b0) begin
+   CLK <= 1'b0;
+end
+
+```
+
+So, the first rising edge occurs at 12.5ns because of *(period/2)* delay.
+
+This controls whether PLL emits the clock. This is the actual enable for clock generation.
+
+```verilog
+always @(posedge REF) begin
+   if (lastedge > 0.0) begin
+      refpd = $realtime - lastedge;
+      period = (refpd / 8.0);
+   end
+   lastedge = $realtime;
+end
+
+```
+On each rising edge of REF, the module measures the time since the last rising edge and adjusts the output clock accordingly.
+
+
+### Cycle-by-Cycle Explanation of PLL Period Update
+
+We’re analyzing this always block:
+
+```verilog
+always @(posedge REF) begin
+   if (lastedge > 0.0) begin
+      refpd = $realtime - lastedge;
+      period = (refpd / 8.0);
+   end
+   lastedge = $realtime;
+end
+```
+
+This block updates the PLL output `period` based on the timing between rising edges of the `REF` clock.
+Let’s assume `REF` has a 20 ns period (50 MHz). Its rising edges occur at:
+
+```
+t = 0 ns, 20 ns, 40 ns, 60 ns, 80 ns, ...
+```
+
+ **Cycle 1 — Rising Edge at t = 0 ns**
+- `lastedge = 0.0` (initialized)
+- Condition `lastedge > 0.0` is false
+- No update to `period`
+- `lastedge` becomes 0.0
+
+**Cycle 2 — Rising Edge at t = 20 ns**
+- `lastedge = 0.0`
+- Condition still false
+- `lastedge = 20.0`
+
+**Cycle 3 — Rising Edge at t = 40 ns**
+- `lastedge = 20.0` → condition true
+- `refpd = 40.0 - 20.0 = 20.0 ns`
+- `period = 20.0 / 8.0 = 2.5 ns`
+- `lastedge = 40.0`
+
+**Cycle 4 — Rising Edge at t = 60 ns**
+- `refpd = 60.0 − 40.0 = 20 ns`
+- `period = 20 / 8 = 2.5 ns`
+- `lastedge = 60.0`
+
+**Cycle 5 — Rising Edge at t = 80 ns**
+- `refpd = 80.0 − 60.0 = 20 ns`
+- `period = 20 / 8 = 2.5 ns`
+- `lastedge = 80.0`
+
+### The 'period' when divided by 2 gives us rising edge.
+
+```verilog
+always @(CLK or ENb_VCO) begin
+   if (ENb_VCO == 1'b1) begin
+      #(period / 2.0);
+      CLK <= (CLK === 1'b0);
+   end
+   else if (ENb_VCO == 1'b0) begin
+      CLK <= 1'b0;
+   end
+   else begin
+      CLK <= 1'bx;
+   end
+end
+```
+
+- `period` is the full cycle time
+- Dividing by 2 gives a 50% duty cycle
+- With `period = 2.5 ns`, the delay is `1.25 ns` between two consectoggles
+
+Example:
+```
+Time: 40ns, 41.25ns, 42.5ns, 43.75ns, 45ns...
+CLK:   0      1        0        1       0   ...
+```
+
+The clock's full period remains 2.5 ns, matching the 400 MHz target.
