@@ -3,8 +3,6 @@
 ## What is Static timing analysis?
 Static timing analysis (STA) is a method of validating the timing performance of a design by checking all possible paths for timing violations.
 
-**Note -  STA can only check the timing, not the functionality, of a circuit design.**
-
 ### Setup time & Hold time
 The ultimate idea behind a *setup time* & *hold time* is that the data signals should remain stable during a clock edge to avoid misinterpretation of data.
 - Setup time - The minimum amount of time that the data signal must be stable before active clock edge arrives.
@@ -35,5 +33,7 @@ The two most fundamental types of timing violations are **Setup time violations*
 ---
 
 Ultimately, performing STA means analysing the performance of a circuit by checking all possible paths which can cause timing violations(setup or hold time violation).
+
+**Note -  STA can only check the timing, not the functionality, of a circuit design.**
 
 ## Timing path
