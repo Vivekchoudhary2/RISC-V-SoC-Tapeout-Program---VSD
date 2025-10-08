@@ -38,6 +38,34 @@ Ultimately, performing STA means analysing the performance of a circuit by check
 
 ## Timing path
 
-Now, since we understand what timing violations mean it is essential to understand how STA works.
+Now, since we understand what timing violations mean it is essential to understand how STA works. STA identifies every possible route a signal can take through a digital circuit. That route is called *timing path*.
+
+That path has 3 key components:
+- Startpoint - This is where the data signal originates. It's typically the clock pin of a sequential element like a flip-flop or an input port of the chip.
+- Combinational logic - This is the series of logic gates (like AND, OR, NOT gates) that the signal travels through. 
+- Endpoint - This is the final destination of the data signal. It's usually the data input pin of a sequential element or an output port of the chip.
+
+---
 
 
+
+<div align="center">
+ <img width="927" height="409" alt="image" src="https://github.com/user-attachments/assets/b2745682-98b9-43e6-9e80-058d232b19a1" />
+  </br>
+  <br/>
+  <em> Timing path </em>
+</div>
+
+---
+
+
+<div align="center">
+ <img width="927" height="464" alt="image" src="https://github.com/user-attachments/assets/39daa126-7a08-484a-94ef-dea1f5844995" />
+  </br>
+  <br/>
+  <em> Cloud shape substitutes combinational logic with paths having varying delay </em>
+</div>
+
+---
+
+To perform timing analysis, the complete circuit is divided into different timing paths (that timing path may include path between *Input to register*, *Register to register* or *Register to output*).
