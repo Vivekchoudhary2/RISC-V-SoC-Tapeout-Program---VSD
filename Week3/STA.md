@@ -37,3 +37,7 @@ Ultimately, performing STA means analysing the performance of a circuit by check
 **Note -  STA can only check the timing, not the functionality, of a circuit design.**
 
 ## Timing path
+
+Now, since we understand what timing violations mean it is essential to understand how STA works.
+
+
