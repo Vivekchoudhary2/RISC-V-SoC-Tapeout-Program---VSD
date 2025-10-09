@@ -68,4 +68,19 @@ That path has 3 key components:
 
 ---
 
-To perform timing analysis, the complete circuit is divided into different timing paths (that timing path may include path between *Input to register*, *Register to register* or *Register to output*).
+To perform timing analysis, the complete circuit is divided into different timing paths (that timing path may include path between *Input to register*, *Register to register* or *Register to output*) followed by calculation of delay across every specific path and finally determining the slowest and the fastest path in the circuit.
+
+## Arrival time
+
+This is the time by which the signal is expected to arrive at a certain point in a design.
+
+## Required time
+
+This is the time by which a signal must arrive at the destination to be correctly captured.
+
+## Slack
+
+Slack is the difference between the *'Required time'* and the  *'Arrival time'*.
+They are of two types:
+- Setup slack
+- Hold slack
