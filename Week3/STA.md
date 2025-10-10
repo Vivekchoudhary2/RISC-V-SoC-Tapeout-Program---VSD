@@ -155,3 +155,145 @@ Hold Slack = 90 ps - 60 ps = +30 ps
 ---
 
 </details>
+
+
+### Setup check
+The setup check ensures that the data is available at the input of the FF2 before the active edge of the clock. Because at the next clock edge the FF2 will capture whatever is at it's input and produce output. Therefore, before the arrival of clock we must know for sure that the next available data is ready at the input of FF2.
+
+Also,
+ - The data should be stable for a certain amount of time, namely the setup time of the flip-flop, before the active edge of the clock arrives at the flip-flops, so that the data is captured reliably into the flip-flop.
+ - The setup check ensures that the data launched from the previous clock cycle is ready to be captured after one cycle.
+
+
+<details>
+<summary><h4> Example of setup check </h4></summary>
+
+Let's analyze a simple circuit where a signal is launched from flip-flop FF1 and captured by flip-flop FF2.
+
+---
+
+<div align="center">
+ <img width="773" height="346" alt="image" src="https://github.com/user-attachments/assets/8f929d9b-a2dd-484d-af24-2e7a7a033539" />
+  </br>
+  <br/>
+  <em> Demonstrating setup check with two back to back flip-flops </em>
+</div>
+
+---
+
+Timing Parameters:
+
+- Clock Period: 10 nanoseconds (ns). The first clock edge is at 0 ns, and the next is at 10 ns.
+
+- Clock-to-Q Delay (T_c-q) of FF1: 1 ns. The time it takes for data to appear at FF1's output after a clock edge.
+
+- Combinational Logic Delay: 7 ns. The delay through the logic gates between the two flip-flops. This is our longest path.
+
+- Setup Time (T_setup) of FF2: 2 ns. FF2 requires the data to be stable at its input for at least 2 ns before the 10 ns clock edge.
+
+---
+
+#### Step 1: Calculate the Data Arrival Time (AT) ⏱️
+This is the actual time it takes for the data to travel from FF1 to FF2 after the 0 ns clock edge.
+```
+Data Arrival Time = T_c-q + Combinational Logic Delay
+AT = 1 ns + 7 ns = 8 ns
+```
+So, the data arrives at FF2's input at 8 ns.
+
+---
+
+#### Step 2: Calculate the Data Required Time (RT) 📅
+This is the deadline the data must meet. It must be stable at FF2's input one setup time before the next clock edge.
+
+```
+Data Required Time = Next Clock Edge - T_setup
+RT = 10 ns - 2 ns = 8 ns
+```
+The data is required to arrive no later than 8 ns.
+
+---
+
+#### Step 3: Compare
+Now we compare the arrival time to the required time.
+
+Since both are equal, the signal arrives exactly when it is needed. The **setup check passes**, but with zero slack.
+
+If the logic delay had been 7.1 ns, the arrival time would have been 8.1 ns, which is later than the required time of 8 ns. This would result in a setup violation.
+
+The new data signal arrived 0.1 ns too late, missing its deadline before the clock edge. This means FF2 was not guaranteed to capture the new, correct value and might have captured the old data or an unstable signal. To fix this, an engineer would need to optimize the logic path to reduce its delay. This is often done by swapping in faster logic cells, re-arranging the logic, or improving the physical layout.
+
+</details>
+
+---
+
+### Hold check
+A hold check ensures that the data signal at the input remains stable for a minimum required time **after the clock edge has passed**.
+
+The data should be stable for a certain amount of time, namely the hold time of FF, after the active edge of clock so that the data is captured reliably.
+
+The data which has already been captured by FF2 must be stable at the input for atleast the hold time of the FF immediately after the current clock edge has passed.
+
+
+<details>
+<summary><h4> Example of hold check </h4></summary>
+
+Let's use the same circuit as before, but this time we will analyze the shortest (fastest) possible path for the signal.
+
+---
+
+<div align="center">
+ <img width="773" height="346" alt="image" src="https://github.com/user-attachments/assets/8f929d9b-a2dd-484d-af24-2e7a7a033539" />
+  </br>
+  <br/>
+  <em> Demonstrating hold check with two back to back flip-flops </em>
+</div>
+
+---
+
+Timing Parameters:
+
+- Clock Period: 10 nanoseconds (ns). The analysis happens relative to a single clock edge (let's say at 0 ns).
+
+- Clock-to-Q Delay (T_c-q) of FF1: 1 ns.
+
+- Combinational Logic Delay: 0.5 ns.  This is a very fast path, which is where hold violations are most likely to occur.
+
+- Setup Time (T_setup) of FF2: 2 ns. FF2 requires its input data to remain stable for at least 2 ns after the clock edge.
+
+---
+
+#### Step 1: Calculate the Data Arrival Time (AT) ⏱️
+This is the actual time it takes for the data to travel from FF1 to FF2 after the 0 ns clock edge.
+```
+Data Arrival Time = T_c-q + Combinational Logic Delay
+AT = 1 ns + 0.5 ns = 1.5 ns
+```
+The new data arrives at FF2's input at 1.5 ns.
+
+---
+
+#### Step 2: Calculate the Data Required Time (RT) 📅
+This is the time window during which the old data must remain stable. It must be held steady for one hold time after the launching clock edge.
+
+```
+Data Required Time = Launch Clock Edge - T_hold
+RT = 0 ns + 2 ns = 2 ns
+```
+The old data must not change before 2 ns.
+
+---
+
+#### Step 3: Compare
+Now, we compare when the new data arrives versus how long the old data needed to be held.
+- Arrival Time (New Data): 1.5 ns
+- Required Time (Old Data Stable Until): 2 ns
+
+The new data arrives at 1.5 ns, but the old data was required to stay stable until 2 ns. The arrival time is less than the required time.
+
+
+This is a **hold violation**. The new data signal arrived 0.5 ns too early, overwriting the previous value before FF2 had enough time to reliably capture it. To fix this, an engineer would need to add delay (usually by inserting buffers) into the logic path to slow the signal down.
+
+</details>
+
+---
