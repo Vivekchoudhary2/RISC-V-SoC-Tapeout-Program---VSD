@@ -80,17 +80,17 @@ This is the time by which a signal must arrive at the destination to be correctl
 
 ## Slack
 
-Slack is the difference between the *'Required time'* and the  *'Arrival time'*.
+Slack is the difference between the *'Required time'* and the *'Arrival time'*.
 They are of two types:
 - Setup slack
 - Hold slack
 
-
-## 🧮 Example: Setup and Hold Slack Calculation
+<details>
+<summary><h2>🧮 Example: Setup and Hold Slack Calculation</h2></summary>
 
 Let’s work through an example to solidify the concept.
 
-### Circuit Parameters
+### Circuit and timing parameters
 
 | Parameter | Symbol | Value |
 |------------|---------|--------|
@@ -98,6 +98,8 @@ Let’s work through an example to solidify the concept.
 | Clock-to-Q Delay (FF1) | T<sub>c-q</sub> | **50 ps** |
 | Setup Time (FF2) | T<sub>setup</sub> | **70 ps** |
 | Hold Time (FF2) | T<sub>hold</sub> | **60 ps** |
+| Logic path delay(longest) | - | **800ps** |
+| Logic path delay(shortest) | - | **40ps** |
 
 ---
 
@@ -114,7 +116,7 @@ AT = 50 ps + 800 ps = 850 ps
 #### Step 2: Calculate Required Time (RT)
 ```
 RT = Next Clock Edge - T_setup
-RT = 1000 ps - 70 ps = 930 ps
+RT = 1000 ps - 70 ps = 930 ps        // The data is required to be at FF2 no later than 930 ps.
 ```
 
 #### Step 3: Calculate Setup Slack
@@ -123,24 +125,23 @@ Setup Slack = RT - AT
 Setup Slack = 930 ps - 850 ps = +80 ps
 ```
 
-✅ **Result:** Positive slack → setup requirement met with **80 ps margin.**
+✅ **Result:** The signal arrived 80 ps earlier than it needed to.
 
 ---
 
 ### 🔹 Part 2: Hold Slack (Shortest Path)
 
-Assume the **fastest** logic path has a delay of **40 ps**.
 
 #### Step 1: Calculate Arrival Time (AT)
 ```
-AT = T_c-q + Logic Path Delay
+AT = T_c-q + Logic Path Delay(shortest)
 AT = 50 ps + 40 ps = 90 ps
 ```
 
 #### Step 2: Calculate Required Time (RT)
 ```
 RT = Launch Clock Edge + T_hold
-RT = 0 ps + 60 ps = 60 ps
+RT = 0 ps + 60 ps = 60 ps           // The old data must not be changed before 60 ps.
 ```
 
 #### Step 3: Calculate Hold Slack
@@ -149,23 +150,8 @@ Hold Slack = AT - RT
 Hold Slack = 90 ps - 60 ps = +30 ps
 ```
 
-✅ **Result:** Positive slack → hold requirement met with **30 ps margin.**
+✅ **Result:** The new data arrived 30 ps after the hold window for the old data closed, which is safe.
 
 ---
 
-## ✅ Summary
-
-| Concept | Formula | Description |
-|----------|----------|-------------|
-| **Setup Slack** | RT - AT | Checks if data arrives **before** next clock edge |
-| **Hold Slack** | AT - RT | Checks if data arrives **after** hold window closes |
-| **Positive Slack** | – | Timing met |
-| **Negative Slack** | – | Timing violation |
-
----
-
-> 🧠 **Key Insight:**  
-> STA is a purely **timing-based verification** process — it checks **when** signals arrive, not **what** values they carry.  
-> Hence, STA ensures **timing integrity**, while functional simulations ensure **logical correctness**.
-
----
+</details>
