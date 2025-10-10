@@ -158,7 +158,7 @@ Hold Slack = 90 ps - 60 ps = +30 ps
 
 
 ### Setup check
-The setup check ensures that the data is available at the input of the FF2 before the active edge of the clock. Because at the next clock edge the FF2 will capture whatever is at it's input and produce output. Therefore, before the arrival of clock we must know for sure that the next available data is ready at the input of FF2.
+The setup check ensures that the data is available at the input of the FF2 before the active edge of the clock. Because at the next clock edge the FF2 will capture whatever is at it's input and produce output. Therefore, before the arrival of clock we must know for sure that the next data is ready at the input of FF2.
 
 Also,
  - The data should be stable for a certain amount of time, namely the setup time of the flip-flop, before the active edge of the clock arrives at the flip-flops, so that the data is captured reliably into the flip-flop.
