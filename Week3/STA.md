@@ -72,7 +72,7 @@ To perform timing analysis, the complete circuit is divided into different timin
 
 ## Arrival time
 
-This is the time by which the signal is expected to arrive at a certain point in a design.
+This is the time by which the signal arrives at a certain point in a design.
 
 ## Required time
 
@@ -293,6 +293,135 @@ The new data arrives at 1.5 ns, but the old data was required to stay stable unt
 
 
 This is a **hold violation**. The new data signal arrived 0.5 ns too early, overwriting the previous value before FF2 had enough time to reliably capture it. To fix this, an engineer would need to add delay (usually by inserting buffers) into the logic path to slow the signal down.
+
+</details>
+
+---
+
+<details>
+<summary><h4> Example with DAG </h4></summary>
+
+<div align="center">
+ <img width="1770" height="926" alt="image" src="https://github.com/user-attachments/assets/20e1ff6a-a45f-49c8-ad77-e70d3112344c" />
+  </br>
+  <br/>
+  <em>DAG of combinational logic between two sequential elements</em>
+</div>
+
+---
+
+#### What is DAG?
+It is visual representation tool for digital circuits to model signal propagation and calculate delays.In this graph, logic gates and flip-flops are represented as nodes, and the wires connecting them are represented as edges.
+
+---
+
+<div align="center">
+ <img width="966" height="300" alt="Screenshot 2025-10-11 225035" src="https://github.com/user-attachments/assets/7d45409a-ad84-45e9-bdb9-1ea597de9043" />
+  </br>
+  <br/>
+  <em>DAG with arrival time & required arrival time of signal</em>
+</div>
+
+---
+
+## 🎯 Overall Goal
+This graph now illustrates a **more complete Static Timing Analysis (STA)** process.  
+It calculates not only the **Arrival Time (A)** but also the **Required Time (R)** to determine the **timing Slack** for each path.
+
+---
+
+## 🔹 Arrival Time (Blue 'A')
+- Calculated by **propagating forward** from the startpoint (s).  
+- Represents the **actual time a signal arrives** at each node.  
+- The formula remains the same:  
+  ```
+  Arrival Time (A) = MAX(Input Arrival Times) + Gate Delay
+  ```
+
+---
+
+## 🔹 Required Time (Yellow 'R')
+- The *required arrival time* indicates user's desired specifications. Basically, the user desires that the circuit maintain a certain speed of operation.
+- Represents the **time by which a signal must arrive** at a node for the circuit to meet its timing constraints.  
+- Calculated by **propagating backward** from the endpoint (o1).  
+- The STA tool starts with a timing constraint at the output (e.g., **R = 7.55** at o1) and works backward.
+
+The formula for backward propagation:
+```
+Required Time (R_input) = Required Time (R_output) - Gate Delay - Wire Delay
+```
+
+---
+
+## ⚙️ Slack Calculation (Timing Margin)
+Slack is the **ultimate measure** of whether timing is met.
+
+```
+Slack = Required Time (R) - Arrival Time (A)
+```
+
+### ✅ Positive Slack (R > A)
+- The signal arrived earlier than required.
+- **Good** — path meets timing.
+
+### ❌ Negative Slack (R < A)
+- The signal arrived later than required.
+- **Bad** — path has a **timing violation** that must be fixed.
+
+---
+
+## 🔍 Example Trace: Required Time at Node **b**
+
+Let’s calculate the **Required Time (R 5.15)** at the output of node **b** to understand backward timing propagation.
+
+1. **Start from the Next Node (d):**
+   - Required Time at output of d = **R 7.45**
+   - Internal delay of gate d = **2**
+   - Therefore, the signal must arrive at the input of d by:
+     ```
+     7.45 - 2 = 5.45
+     ```
+
+2. **Account for Wire Delay:**
+   - Wire delay from **b → d** = **0.3**
+   - Subtract this delay from the above value:
+     ```
+     RT at b = 5.45 - 0.3 = 5.15
+     ```
+   ✅ This matches the given **R 5.15** value in the timing graph.
+
+---
+
+## 🔎 Finding the Critical Path
+
+Once both **Arrival (A)** and **Required (R)** times are known,  
+STA tools compute **Slack = R - A** for all nodes and identify the **critical path**.
+
+Example at **node i2**:
+```
+Slack = R - A = (-0.05) - (0.3) = -0.35
+```
+This **negative slack** indicates a timing violation.
+
+### ⚡ The Critical Path
+The path with the **most negative slack** is the **critical path** — the slowest path in the circuit that limits performance.
+
+In this graph, the **critical path** is:
+```
+s → i2 → a → c → d → o1
+```
+
+---
+
+📘 **Summary**
+| Concept | Meaning |
+|----------|----------|
+| Arrival Time (A) | Actual signal arrival time (forward propagation) |
+| Required Time (R) | Deadline for signal arrival (backward propagation) |
+| Slack | Timing margin (R - A) |
+| Critical Path | Path with minimum slack (worst-case delay) |
+
+
 
 </details>
 
