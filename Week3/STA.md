@@ -85,6 +85,8 @@ They are of two types:
 - Setup slack
 - Hold slack
 
+---
+
 <details>
 <summary><h2>🧮 Example: Setup and Hold Slack Calculation</h2></summary>
 
@@ -156,6 +158,7 @@ Hold Slack = 90 ps - 60 ps = +30 ps
 
 </details>
 
+---
 
 ### Setup check
 The setup check ensures that the data is available at the input of the FF2 before the active edge of the clock. Because at the next clock edge the FF2 will capture whatever is at it's input and produce output. Therefore, before the arrival of clock we must know for sure that the next data is ready at the input of FF2.
